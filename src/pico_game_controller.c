@@ -19,10 +19,10 @@
 #include "usb_descriptors.h"
 #include "ws2812.pio.h"
 
-#define SW_GPIO_SIZE 11               // Number of switches
+#define SW_GPIO_SIZE 9                // Number of switches
 #define LED_GPIO_SIZE 7               // Number of button leds
 #define ENC_GPIO_SIZE 2               // Number of encoders
-#define ENC_PPR 600                   // Encoder PPR
+#define ENC_PPR 24                    // Encoder PPR
 #define ENC_DEBOUNCE true             // Encoder Debouncing
 #define ENC_PULSE (ENC_PPR * 4)       // 4 pulses per PPR
 #define ENC_ROLLOVER (ENC_PULSE * 2)  // Delta Rollover threshold
@@ -33,11 +33,12 @@
   WS2812B_LED_SIZE / WS2812B_LED_ZONES  // Number of LEDs per zone
 
 // MODIFY KEYBINDS HERE, MAKE SURE LENGTHS MATCH SW_GPIO_SIZE
-const uint8_t SW_KEYCODE[] = {HID_KEY_D, HID_KEY_F, HID_KEY_J, HID_KEY_K,
-                              HID_KEY_C, HID_KEY_M, HID_KEY_A, HID_KEY_B,
-                              HID_KEY_1, HID_KEY_E, HID_KEY_G};
+const uint8_t SW_KEYCODE[] = {
+    HID_KEY_D, HID_KEY_F, HID_KEY_J, HID_KEY_K, HID_KEY_C,
+    HID_KEY_M, HID_KEY_A, HID_KEY_B, HID_KEY_1,
+};
 const uint8_t SW_GPIO[] = {
-    4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 27,
+    4, 6, 8, 10, 12, 14, 27, 18, 20,
 };
 const uint8_t LED_GPIO[] = {
     5, 7, 9, 11, 13, 15, 21,

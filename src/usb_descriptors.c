@@ -34,10 +34,6 @@
  * Auto ProductID layout's Bitmap:
  *   [MSB]         HID | MSC | CDC          [LSB]
  */
-#define _PID_MAP(itf, n) ((CFG_TUD_##itf) << (n))
-#define USB_PID                                                      \
-  (0x4000 | _PID_MAP(CDC, 0) | _PID_MAP(MSC, 1) | _PID_MAP(HID, 2) | \
-   _PID_MAP(MIDI, 3) | _PID_MAP(VENDOR, 4))
 
 //--------------------------------------------------------------------+
 // Device Descriptors
@@ -51,8 +47,8 @@ tusb_desc_device_t const desc_device = {
     .bDeviceProtocol = 0x00,
     .bMaxPacketSize0 = CFG_TUD_ENDPOINT0_SIZE,
 
-    .idVendor = 0xCafe,
-    .idProduct = USB_PID,
+    .idVendor = 0x1ccf,
+    .idProduct = 0x101c,
     .bcdDevice = 0x0100,
 
     .iManufacturer = 0x01,
@@ -122,8 +118,8 @@ uint8_t const* tud_descriptor_configuration_cb(uint8_t index) {
 // array of pointer to string descriptors
 char const* string_desc_arr[] = {
     (const char[]){0x09, 0x04},  // 0: is supported language is English (0x0409)
-    "SpeedyPotato",              // 1: Manufacturer
-    "Pico Game Controller",      // 2: Product
+    "Konami Amusement",          // 1: Manufacturer
+    "SOUND VOLTEX controller",   // 2: Product
     "123456",                    // 3: Serials, should use chip ID
     "BT-A",
     "BT-B",
