@@ -125,22 +125,19 @@ char const* string_desc_arr[] = {
     "SpeedyPotato",              // 1: Manufacturer
     "Pico Game Controller",      // 2: Product
     "123456",                    // 3: Serials, should use chip ID
-    "Button 1",
-    "Button 2",
-    "Button 3",
-    "Button 4",
-    "Button 5",
-    "Button 6",
-    "Button 7",
-    "Button 8",
-    "Button 9",
-    "Button 10",
-    "Red 1",
-    "Green 1",
-    "Blue 1",
-    "Red 2",
-    "Green 2",
-    "Blue 2",
+    "BT-A",
+    "BT-B",
+    "BT-C",
+    "BT-D",
+    "FX-L",
+    "FX-R",
+    "Start",
+    "Left R",
+    "Left G",
+    "Left B",
+    "Right R",
+    "Right G",
+    "Right B",
 };
 
 static uint16_t _desc_str[64];
