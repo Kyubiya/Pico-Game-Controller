@@ -122,12 +122,16 @@ void update_lights() {
   if (reactive_timeout_count < REACTIVE_TIMEOUT_MAX) {
     reactive_timeout_count++;
   }
-  //Cache a local copy of sw_data
-  uint16_t temp_data = sw_data;
-  for (int i = 0; i < LED_GPIO_SIZE; i++) {
-    if (reactive_timeout_count >= REACTIVE_TIMEOUT_MAX) {
+
+  if (reactive_timeout_count >= REACTIVE_TIMEOUT_MAX) {
+    //Cache a local copy of sw_data
+    uint16_t temp_data = sw_data;
+    for (int i =0; i < LED_GPIO_SIZE - 1; i++) {
       gpio_put(LED_GPIO[i], (temp_data >> i) & 0x1);
-    } else {
+    }
+    gpio_put(LED_GPIO[7], (temp_data >> 9) & 0x1);      //Start button
+  } else {    //HID control ignores sw_data
+    for (int i = 0; i < LED_GPIO_SIZE; i++) {
       gpio_put(LED_GPIO[i], lights_report.lights.buttons[i]);
     }
   }
