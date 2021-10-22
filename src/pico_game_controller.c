@@ -28,6 +28,7 @@ volatile uint32_t enc_val[ENC_GPIO_SIZE];
 uint32_t prev_enc_val[ENC_GPIO_SIZE];
 int cur_enc_val[ENC_GPIO_SIZE];
 int enc_dma_chan[ENC_GPIO_SIZE];
+int enc_led_timeout[ENC_GPIO_SIZE];
 
 dma_channel_config sw_rx_c;
 dma_channel_config sw_tx_c;
@@ -159,6 +160,13 @@ void joy_mode() {
 
     // find the delta between previous and current enc_val
     for (int i = 0; i < ENC_GPIO_SIZE; i++) {
+      //LED check
+      if (temp_val[i] != prev_enc_val[i]) {
+        enc_led_timeout[i] = 0;
+      } else {
+        enc_led_timeout[i] += 1;
+      }
+
       cur_enc_val[i] +=
           ((ENC_REV[i] ? 1 : -1) * (temp_val[i] - prev_enc_val[i]));
       while (cur_enc_val[i] < 0) cur_enc_val[i] = ENC_PULSE + cur_enc_val[i];
@@ -349,10 +357,18 @@ void init() {
  * Second Core Runnable
  **/
 void core1_entry() {
-  uint32_t counter = 0;
   while (1) {
-    ws2812b_update(++counter);
-    sleep_ms(5);
+    uint16_t temp_data = sw_data;
+    //Inject encoder leds
+    for (int i = 0; i < ENC_GPIO_SIZE; i++) {
+      for (int j = 0; j < WS2812B_LEDS_PER_ZONE; j++) {
+        if (enc_led_timeout[i] < 100) {
+          if (i == 0) put_pixel(urgb_u32(0,0,255));
+          else put_pixel(urgb_u32(255,0,0));
+        } else put_pixel(0);
+      }
+    }
+    sleep_ms(1);
   }
 }
 
