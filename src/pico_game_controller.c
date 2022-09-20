@@ -104,8 +104,12 @@ void update_lights() {
 
 struct report {
   uint16_t buttons;
+  uint8_t hat;
   uint8_t joy0;
   uint8_t joy1;
+  uint8_t rx;
+	uint8_t ry;
+  uint8_t vendor;
 } report;
 
 /**
@@ -309,6 +313,10 @@ int main(void) {
     tud_task();  // tinyusb device task
     update_inputs();
     report.buttons = debounce_mode();
+    report.hat = 0x08;
+    report.rx = 0x80;
+    report.ry = 0x80;
+    report.vendor = 0x00;
     loop_mode();
     update_lights();
   }

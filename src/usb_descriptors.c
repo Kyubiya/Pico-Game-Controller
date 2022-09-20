@@ -66,13 +66,13 @@ tusb_desc_device_t const desc_device_key = {
     .bDeviceProtocol = 0x00,
     .bMaxPacketSize0 = CFG_TUD_ENDPOINT0_SIZE,
 
-    .idVendor = 0x1ccf,
-    .idProduct = 0x101c,
+    .idVendor = 0x0F0D,
+    .idProduct = 0x0092,
     .bcdDevice = 0x0100,
 
     .iManufacturer = 0x01,
     .iProduct = 0x02,
-    .iSerialNumber = 0x04,
+    .iSerialNumber = 0x00,
 
     .bNumConfigurations = 0x01};
 
@@ -117,7 +117,7 @@ uint8_t const desc_configuration_joy[] = {
     // Config number, interface count, string index, total length, attribute,
     // power in mA
     TUD_CONFIG_DESCRIPTOR(1, ITF_NUM_TOTAL, 0, CONFIG_TOTAL_LEN,
-                          TUSB_DESC_CONFIG_ATT_REMOTE_WAKEUP, 100),
+                          TUSB_DESC_CONFIG_ATT_REMOTE_WAKEUP, 500),
 
     // Interface number, string index, protocol, report descriptor len, EP In
     // address, size & polling interval
